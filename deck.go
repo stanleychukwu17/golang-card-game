@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 type deck []string
@@ -63,4 +65,15 @@ func newDeckFromFile(filename string) deck {
 	// deck(s) converts the []string to a *type deck*
 	// converting the []string into a *type deck* allows us to be able to use all the methods on the *type deck*
 	return deck(s)
+}
+
+// a function that shuffles the deck of cards
+func (d deck) shuffle() {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for i := range d {
+		newPosition := r.Intn(len(d) - 1)
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
 }
