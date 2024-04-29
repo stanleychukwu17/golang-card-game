@@ -69,11 +69,11 @@ func newDeckFromFile(filename string) deck {
 
 // a function that shuffles the deck of cards
 func (d deck) shuffle() {
-	source := rand.NewSource(time.Now().UnixNano())
+	source := rand.NewSource(time.Now().UnixNano()) // time.Now().UnixNano() returns the current time in nanoseconds - this is used to seed the random number generator
 	r := rand.New(source)
 
 	for i := range d {
-		newPosition := r.Intn(len(d) - 1)
-		d[i], d[newPosition] = d[newPosition], d[i]
+		newPosition := r.Intn(len(d) - 1)           // generates a random int64 number btw 0 and the (len(d) - 1)
+		d[i], d[newPosition] = d[newPosition], d[i] // swap positions in the deck
 	}
 }
